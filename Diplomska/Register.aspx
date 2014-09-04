@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Регистрација</title>
+
      <link href="style/style.css" rel="stylesheet" />
      <link rel="shortcut icon" href="../Images/favicon.ico" />
     <link href="style/loginStile.css" rel="stylesheet" />

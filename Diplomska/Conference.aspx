@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
 
     <title>Конференции</title>
- 
+ <link rel="shortcut icon" href="../Images/favicon.ico" />
     <link href="style/style.css" rel="stylesheet" />
     <link href="style/bootstrap.css" rel="stylesheet" />
     <link href="style/justified-nav.css" rel="stylesheet" />
