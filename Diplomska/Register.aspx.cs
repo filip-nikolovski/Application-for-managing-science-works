@@ -57,8 +57,8 @@ namespace Diplomska
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-           // try
-           // {
+            try
+            {
                 conn.Open();
 
                 //checked is email registred
@@ -100,17 +100,17 @@ namespace Diplomska
 
                     lblErr.Text = "email адресата е во употреба!";
             }
-        //    }
-        //    catch (Exception ex)
-          //  {
+            }
+            catch (Exception ex)
+            {
 
                 //Label1.Text = ex.ToString();
-            //}
-            //finally {
+            }
+            finally {
 
                 conn.Close();
                
-            //}
+            }
 
         }
 

@@ -275,10 +275,10 @@ namespace Diplomska
         {
             DataSet dsMonth = new DataSet();
 
-            string connString = "SERVER=localhost;DATABASE=naucen_trud;UID=root;PWD=filip;";
-            MySqlConnection dbConnection = new MySqlConnection(connString);
+            //string connString = "SERVER=localhost;DATABASE=naucen_trud;UID=root;PWD=filip;";
+            //MySqlConnection dbConnection = new MySqlConnection(connString);
             string query = "Select HolidayDate from holidays h, conference c, science_work sw where h.conference_ID=c.id and c.science_work_id=sw.id and sw.autores LIKE '%" + Session["New"].ToString() + "%' and HolidayDate >= ?firstDate and HolidayDate<?lastDate OR sw.Corresponding_autor LIKE '%" + Session["New"].ToString() + "%' and h.conference_ID=c.id and c.science_work_id=sw.id and HolidayDate >= ?firstDate and HolidayDate<?lastDate";
-            MySqlCommand dbCommand = new MySqlCommand(query, dbConnection);
+            MySqlCommand dbCommand = new MySqlCommand(query, conn);
             dbCommand.Parameters.Add("?firstDate", firstDate);
             dbCommand.Parameters.Add("?lastDate", lastDate);
 

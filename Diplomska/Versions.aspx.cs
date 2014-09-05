@@ -135,10 +135,10 @@ namespace Diplomska
         {
             DataSet dsMonth = new DataSet();
 
-            string connString = "SERVER=localhost;DATABASE=naucen_trud;UID=root;PWD=filip;";
-            MySqlConnection dbConnection = new MySqlConnection(connString);
+            //string connString = "SERVER=localhost;DATABASE=naucen_trud;UID=root;PWD=filip;";
+            //MySqlConnection dbConnection = new MySqlConnection(connString);
             string query = "Select HolidayDate from holidays h, conference c, science_work sw where h.conference_ID=c.id and c.science_work_id=sw.id and sw.autores LIKE '%" + Session["New"].ToString() + "%' and HolidayDate >= ?firstDate and HolidayDate<?lastDate OR sw.Corresponding_autor LIKE '%" + Session["New"].ToString() + "%' and h.conference_ID=c.id and c.science_work_id=sw.id and HolidayDate >= ?firstDate and HolidayDate<?lastDate";
-            MySqlCommand dbCommand = new MySqlCommand(query, dbConnection);
+            MySqlCommand dbCommand = new MySqlCommand(query, conn);
             dbCommand.Parameters.Add("?firstDate", firstDate);
             dbCommand.Parameters.Add("?lastDate", lastDate);
 
@@ -289,11 +289,12 @@ namespace Diplomska
 
         protected void btnConfirmAdd_Click(object sender, EventArgs e)
         {
+            conn.Open();
             string sw="";
             if (FileUpload1.HasFile)
             {
-
-                conn.Open();
+               
+                
                 string file_name;
                 int file_size;
 
@@ -312,7 +313,7 @@ namespace Diplomska
                //ok so razlicen folder za sekoj proekt
                  //string savepath = Server.MapPath("~/uploads/projects/" + sw + "/" + txtVersionName.Text);
                  CreateDirectoryIfNotExist(Server.MapPath("~/uploads/projects/" + sw +  "/"+txtVersionName.Text));
-                 FileUpload1.SaveAs(Server.MapPath("~/uploads/projects/" + sw + "/" + txtVersionName.Text+ "/" + FileUpload1.FileName));
+                 FileUpload1.SaveAs(Server.MapPath("~/uploads/projects/" + sw + "/" + txtVersionName.Text + "/" + FileUpload1.FileName));
                 
 
 
@@ -336,7 +337,7 @@ namespace Diplomska
                 string sqlInsert1 = "INSERT INTO versions (id_science_work, date_upload, active, uploader, file_name, file_size, file_path, version_name, description) VALUES(?id_science_work, ?date_upload, ?active, ?uploader, ?file_name, ?file_size, ?file_path, ?version_name, ?description)";
                 MySqlCommand cmd1 = new MySqlCommand(sqlInsert1, conn);
 
-                cmd1.Parameters.Add("?id_science_work", Convert.ToInt32(Session["sess"].ToString()));
+                cmd1.Parameters.Add("?id_science_work",Convert.ToInt32(Session["sess"].ToString()));
                 cmd1.Parameters.Add("?date_upload", System.DateTime.Now.ToString("yyyy-MM-dd"));
                 cmd1.Parameters.Add("?active", RadioButtonList1.SelectedValue);
                 cmd1.Parameters.Add("?uploader", Session["New"].ToString());
@@ -363,8 +364,7 @@ namespace Diplomska
             }
             catch (Exception ex)
             {
-            ///
-            //    lblMsg.Text = ex.ToString();
+                lblMsg.Text = ex.ToString();
             }
             finally
             {
